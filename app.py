@@ -18,18 +18,20 @@ def create_patients_table():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS patients (
             patient_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            token_number INTEGER,       
+            token_number INTEGER,
             name TEXT NOT NULL,
             age INTEGER,
             gender TEXT,
             visit_type TEXT,
-            status TEXT DEFAULT 'WAITING',       
+            emergency_allowed INTEGER DEFAULT 0,
+            status TEXT DEFAULT 'WAITING',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
 
     conn.commit()
     conn.close()
+
 
 AVG_TIME_PER_PATIENT = 5
 
@@ -265,4 +267,4 @@ def reset_emergency():
 
 if __name__ == "__main__":
     create_patients_table()
-    app.run(debug=True)
+    app.run()
