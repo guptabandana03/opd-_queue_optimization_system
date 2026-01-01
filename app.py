@@ -6,6 +6,9 @@ from flask import render_template, request, redirect
 
 app = Flask(__name__)
 
+# Ensure the patients table exists
+create_patients_table() 
+
 def get_db_connection():
     conn = sqlite3.connect(DATABASE_PATH)
     conn.row_factory = sqlite3.Row
@@ -265,6 +268,3 @@ def reset_emergency():
     return "Emergency reset done"
 
 
-if __name__ == "__main__":
-    create_patients_table()
-    app.run()
