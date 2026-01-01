@@ -6,9 +6,6 @@ from flask import render_template, request, redirect
 
 app = Flask(__name__)
 
-# Ensure the patients table exists
-create_patients_table() 
-
 def get_db_connection():
     conn = sqlite3.connect(DATABASE_PATH)
     conn.row_factory = sqlite3.Row
@@ -35,6 +32,7 @@ def create_patients_table():
     conn.commit()
     conn.close()
 
+create_patients_table()
 
 AVG_TIME_PER_PATIENT = 5
 
@@ -74,6 +72,10 @@ def get_priority_queue_with_time(patients):
         })
 
     return final
+app = Flask(__name__)
+
+# Ensure the patients table exists
+create_patients_table() 
 
 
 @app.route("/")
