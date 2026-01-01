@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OPD Queue</title>
+</head>
+<body>
+    <h2>Current OPD Queue</h2>
+
+    <table border="1">
+        <tr>
+            <th>Token</th>
+            <th>Name</th>
+            <th>Visit Type</th>
+            <th>Status</th>
+            <th>Priority Score</th>
+            <th>Estimated Wait (min)</th>
+
+        </tr>
+
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.data['token_number'] }}</td>
+            <td>{{ patient.data['name'] }}</td>
+            <td>{% if patient.data["visit_type"] == "Emergency" and patient.data["emergency_allowed"] == 1 %}
+                    🔴 Emergency (Priority)
+                {% elif patient.data["visit_type"] == "Emergency" %}
+                    🟠 Emergency (Waiting)
+                {% else %}
+                    🟢 Normal
+                {% endif %}
+            </td>
+            <td>{{ patient.data['status'] }}</td>
+            <td>{{ patient.priority_score }}</td>
+            <td>{{ patient.estimated_time }}</td>
+
+
+
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

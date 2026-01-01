@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Dashboard</title>
+</head>
+<body>
+
+<h2>Doctor Dashboard</h2>
+
+{% if next_patient %}
+    <h3>Next Patient</h3>
+
+    <p><b>Token:</b> {{ next_patient.data['token_number'] }}</p>
+    <p><b>Name:</b> {{ next_patient.data['name'] }}</p>
+    <p><b>Age:</b> {{ next_patient.data['age'] }}</p>
+    <p><b>Visit Type:</b> {{ next_patient.data['visit_type'] }}</p>
+    <p><b>Priority Score:</b> {{ next_patient.priority_score }}</p>
+
+    <a href="/serve/{{ next_patient.data['patient_id'] }}">
+        <button>Serve Patient</button>
+    </a>
+    
+    <a href="/emergency/{{ next_patient.data['patient_id'] }}">
+        <button style="background:red; color:white;">
+            Mark Emergency
+        </button>
+    </a>
+
+{% else %}
+    <p>No patients in queue 🎉</p>
+{% endif %}
+{% if next_patient and next_patient.data["visit_type"] == "Emergency" %}
+<p style="color:red;">
+⚠ Serving this patient will consume emergency priority
+</p>
+
+<p>
+<b>Reason:</b>
+{% if next_patient.data["visit_type"] == "Emergency" 
+      and next_patient.data["emergency_allowed"] == 1 %}
+Emergency priority applied
+{% else %}
+Normal OPD queue order
+{% endif %}
+</p>
+
+{% endif %}
+
+</body>
+</html>

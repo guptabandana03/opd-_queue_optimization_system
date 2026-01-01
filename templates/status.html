@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Status</title>
+</head>
+<body>
+    <h2>Check Your OPD Status</h2>
+
+    <form method="POST">
+        <label>Enter Token Number:</label>
+        <input type="number" name="token_number" required>
+        <button type="submit">Check Status</button>
+    </form>
+
+    {% if patient %}
+        <hr>
+        <h3>Patient Details</h3>
+        <p><b>Name:</b> {{ patient.name }}</p>
+        <p><b>Status:</b> {{ patient.status }}</p>
+        <p><b>Queue Position:</b> {{ position + 1 }}</p>
+        <p><b>Estimated Wait Time:</b> {{ estimated_time }} minutes</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OPD Patient Display</title>
+    <style>
+        body { font-family: Arial; text-align: center; }
+        table { margin: auto; border-collapse: collapse; width: 70%; }
+        th, td { border: 1px solid black; padding: 10px; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+<h2>OPD Queue Status</h2>
+
+<table>
+    <tr>
+    <th>Token No</th>
+    <th>Name</th>
+    <th>Estimated Waiting Time</th>
+</tr>
+
+    {% for patient in patients %}
+<tr>
+    <td>{{ patient.data['token_number'] }}</td>
+    <td>{{ patient.data['name'] }}</td>
+    <td>{{ patient.estimated_time }} mins</td>
+    <td>{% if patient.data["visit_type"] == "Emergency" %}
+            🔴 Emergency
+        {% else %}
+            🟢 Normal
+        {% endif %}
+    </td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
